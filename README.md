@@ -1,12 +1,17 @@
 BIBTEXCITE.VIM                                   
 ==============
 
-A simple vim integration for [fzf-bibtex][1] and [bibtool][2] for easy handling
+A simple vim integration for [fzf-bibtex](https://github.com/msprev/fzf-bibtex)
+ and [bibtool](https://ctan.org/pkg/bibtool)  for easy handling
 of bib(la)tex citations. Insert citations in pandoc markdown, latex or
-human-readable format. Fetch citation info in popup window or echo.
+human-readable format. Fetch citation info in popup window or echo. The popup is
+not very nice in nvim currently.
 
-                                       [1]: https://github.com/msprev/fzf-bibtex
-                                       [2]: https://ctan.org/pkg/bibtool 
+Fetch info
+![fetch](fetch.png)
+
+Insert citation
+![insert](insert.png)
 
 INSTALLATION                                      
 ==============================================================================
@@ -17,11 +22,9 @@ are on your path.
 
 Use your favorite plugin manager.
 
- - [vim-plug][3]
+ - [vim-plug](https://github.com/junegunn/vim-plug)
    1. Add `Plug 'ferdinandyb/bibtexcite.vim'` to .vimrc
    2. Run `:PlugInstall`
-
-                                      [3]: https://github.com/junegunn/vim-plug
 
 
 USAGE                                            
@@ -143,10 +146,9 @@ like this over a citekey:
 :put =bibtexcite#getcite('pandoc')
 ```
 
-or using [vim-backscratch][4] `:Scratch BibtexciteEchocite` to put it on
+or using [vim-backscratch](https://github.com/hauleth/vim-backscratch) `:Scratch BibtexciteEchocite` to put it on
 a scratch buffer.
 
-                             [4]: https://github.com/hauleth/vim-backscratch
 
 ---------------------------------------------------------------------------
 

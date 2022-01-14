@@ -14,7 +14,8 @@ BIBTEXCITE.VIM                                    *bibtexcite-vim*
 
 A simple vim integration for {fzf-bibtex}{1} and {bibtool}{2} for easy handling
 of bib(la)tex citations. Insert citations in pandoc markdown, latex or
-human-readable format. Fetch citation info in popup window or echo.
+human-readable format. Fetch citation info in popup window or echo. The pop-up
+is not very nice in nvim currently.
 
                                        {1} https://github.com/msprev/fzf-bibtex
                                        {2} https://ctan.org/pkg/bibtool 
