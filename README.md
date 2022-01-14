@@ -158,9 +158,19 @@ autocmd FileType markdown  nnoremap <buffer> <silent> <leader>nc :BibtexciteInse
 autocmd FileType markdown  inoremap <buffer> <silent> @@ <Esc>:BibtexciteInsert<CR>
 ```
 
+Acknowledgments
+=============================================================================
+
+The code for the popups was sourced from
+[ALE](https://github.com/dense-analysis/ale), the code for the fzf chooser was
+pretty much taken from the fzf-bibtex README.
+
 LICENSE                                                   
 ==============================================================================
 
 MIT
+
+`autoload/bibtexcite/floating_preview.vim` is licensed separately in the file.
+
 
 
