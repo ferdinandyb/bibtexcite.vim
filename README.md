@@ -16,9 +16,10 @@ Insert citation
 INSTALLATION                                      
 ==============================================================================
 
-For fetching citation info bibtool is enough, otherwise you need fzf-bibtex.
-Make sure all the binaries (bibtool, bibtex-ls, bibtex-cite and bibtex-markdown)
-are on your path.
+For fetching citation info [bibtool](https://ctan.org/pkg/bibtool) is enough,
+otherwise you need [fzf-bibtex](https://github.com/msprev/fzf-bibtex) .  Make
+sure all the binaries (bibtool, bibtex-ls, bibtex-cite and bibtex-markdown) are
+on your path.
 
 Use your favorite plugin manager.
 

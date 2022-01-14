@@ -7,6 +7,7 @@ BIBTEXCITE - TABLE OF CONTENTS                    *bibtexcite* *bibtexcite-toc*
     |bibtexcite-usage|          Usage
     |bibtexcite-configuration|  Configuration
     |bibtexcite-tips|           Tips
+    |bibtexcite-acknowledge|    Acknowledgments
     |bibtexcite-license|        Licence
 
 BIBTEXCITE.VIM                                    *bibtexcite-vim*
@@ -168,7 +169,7 @@ autocmd FileType markdown  nnoremap <buffer> <silent> <leader>nc :BibtexciteInse
 autocmd FileType markdown  inoremap <buffer> <silent> @@ <Esc>:BibtexciteInsert<CR>
 ```
 
-Acknowledgments
+Acknowledgments                                       *bibtexcite-acknowledge*
 =============================================================================
 
 The code for the popups was sourced from
