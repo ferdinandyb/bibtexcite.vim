@@ -115,7 +115,7 @@ function! s:VimShow(lines, options) abort
 endfunction
 
 function! s:NvimPrepareWindowContent(lines) abort
-    let l:max_height = 10
+    let l:max_height = 40
 
     let l:width = max(map(copy(a:lines), 'strdisplaywidth(v:val)'))
     let l:height = min([len(a:lines), l:max_height])

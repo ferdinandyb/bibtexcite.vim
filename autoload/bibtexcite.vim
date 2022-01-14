@@ -117,7 +117,11 @@ function! bibtexcite#getcite(citetype = "pandoc", bang = 0)
         echo "no citation found"
         return 0
     else
-        return bib
+        if has('nvim')
+            return join(split(bib,"\t"), "  ")
+        else 
+            return bib
+        endif
     endif
 endfunction
 
