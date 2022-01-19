@@ -34,4 +34,3 @@ let g:bibtexcite_floating_window_border = get(g:, 'bibtexcite_floating_window_bo
 command! -bang -nargs=? BibtexciteInsert call bibtexcite#fzf(<q-args>,<bang>0)
 command! -nargs=? -bang BibtexciteShowcite call bibtexcite#showcite(<q-args>,<bang>0)
 command! -nargs=? -bang BibtexciteEchocite call bibtexcite#echocite(<q-args>,<bang>0)
-

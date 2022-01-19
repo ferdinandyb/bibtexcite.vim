@@ -34,7 +34,7 @@ function! bibtexcite#latex_sink(lines)
     execute ':normal! a' . r
 endfunction
 
-function! bibtexcite#markdown_sink(lines)    
+function! bibtexcite#markdown_sink(lines)
     let l:bibtexcite_bibfile = bibtexcite#get_bibfile()
     let r=system("bibtex-markdown " . l:bibtexcite_bibfile . " ", a:lines )
     execute ':normal! a' . r
@@ -70,6 +70,7 @@ function! bibtexcite#fzf(citetype = "pandoc", bang = 0)
         \ 'up': '40%',
         \ 'options': '--ansi --layout=reverse-list --multi --prompt '. prompt},
         \ a:bang)
+    execute ':normal! a'
 endfunction
 
 function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
@@ -119,7 +120,7 @@ function! bibtexcite#getcite(citetype = "pandoc", bang = 0)
     else
         if has('nvim')
             return join(split(bib,"\t"), "  ")
-        else 
+        else
             return bib
         endif
     endif
@@ -144,4 +145,3 @@ endfunction
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
-
