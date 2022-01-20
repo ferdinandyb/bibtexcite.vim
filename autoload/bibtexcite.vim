@@ -70,7 +70,6 @@ function! bibtexcite#fzf(citetype = "pandoc", bang = 0)
         \ 'up': '40%',
         \ 'options': '--ansi --layout=reverse-list --multi --prompt '. prompt},
         \ a:bang)
-    execute ':normal! a'
 endfunction
 
 function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
