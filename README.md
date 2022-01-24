@@ -112,6 +112,12 @@ If you are working with pandoc markdown the following will do the same:
 grep -rPo "@\K[a-zA-Z0-9\-&_]+" *.md | xargs \
     -I{} bibtool -r biblatex -X {} monolithical.bib > new.bib
 ```
+ 
+Using fzf to export some records from the bibfile to a new one:
+ 
+ ```
+ bibtex-ls ~/org/zotero.bib | fzf --multi | sed -nr 's/.+\b@([a-zA-Z0-9\-\&_])/\1/p' | ansi2txt | xargs  -I{} bibtool -r biblatex -X {} ~/org/zotero.bib
+ ```
 
 ------------------------------------------------------------------------------
 You can bind vim's default help key (K) to get the help if it exists, otherwise
