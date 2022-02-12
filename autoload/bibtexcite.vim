@@ -83,6 +83,8 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
         if word =~ regex
             let word = substitute(word, regex, '\1', '')
             let word = substitute(word, ';','','')
+            let word = substitute(word, ',','','')
+            let word = substitute(word, '\.','','')
             return word
         else
             return 0
