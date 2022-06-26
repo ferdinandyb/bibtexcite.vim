@@ -41,9 +41,11 @@ function! bibtexcite#markdown_sink(lines)
 endfunction
 
 function! bibtexcite#get_bibfile()
-    let l:bibtexcite_bibfile = get(b:, 'bibtexcite_bibfile',g:bibtexcite_bibfile)
-    if type(l:bibtexcite_bibfile) == v:t_list
-        let l:bibtexcite_bibfile = join(l:bibtexcite_bibfile)
+    let l:bibtexcite_bibfile_user = deepcopy(get(b:, 'bibtexcite_bibfile',g:bibtexcite_bibfile))
+    if type(l:bibtexcite_bibfile_user) == v:t_list
+        let l:bibtexcite_bibfile = join(map(l:bibtexcite_bibfile_user, 'fnameescape(v:val)'))
+    else
+        let l:bibtexcite_bibfile = fnameescape(l:bibtexcite_bibfile_user)
     endif
     return l:bibtexcite_bibfile
 endfunction
