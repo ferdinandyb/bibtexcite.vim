@@ -145,21 +145,27 @@ function! bibtexcite#echocite(citetype = "pandoc", bang = 0)
     endif
 endfunction
 
-function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
+function! bibtexcite#getfilepath(citetype = "pandoc", bang = 0)
     let bib = bibtexcite#getcite(a:citetype, a:bang)
+    let l:filepath = matchlist(bib, '[fF]ile\s\+=\s\+{\(.\{-}\)}')
+    if len(l:filepath) > 1
+        let l:filepath = substitute(l:filepath[1], '\n\t\t ', '', 'g')
+        return l:filepath
+    else
+        return ""
+endfunction
+
+function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
+    let l:filepath = bibtexcite#getfilepath(a:citetype, a:bang)
     let l:openfilecommand = get(b:, 'bibtexcite_openfilecommand',g:bibtexcite_openfilecommand)
-    if len(bib) > 1
-        let l:filepath = matchlist(bib, '[fF]ile\s\+=\s\+{\(.\{-}\)}')
-        if len(l:filepath) > 1
-            let l:filepath = substitute(l:filepath[1], '\n\t\t ', '', 'g')
-            if has('nvim')
-                let l:job = jobstart([l:openfilecommand,  l:filepath])
-            else
-                let l:job = job_start([l:openfilecommand,  l:filepath])
-            endif
+    if len(l:filepath) > 1
+        if has('nvim')
+            let l:job = jobstart([l:openfilecommand,  l:filepath])
         else
-            echom "no file"
+            let l:job = job_start([l:openfilecommand,  l:filepath])
         endif
+    else
+        echom "no file"
     endif
 
 endfunction

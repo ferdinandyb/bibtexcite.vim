@@ -159,6 +159,29 @@ endfunction
 This also falls back to Coc.nvim-s show documentation, so if you are not using
 it remove the correspoding elseif.
 
+This version of the function will first try to open the corresponding pdf and if
+there is none, then show the pop-up with the citation info.
+```
+function! myfunctions#show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (len(bibtexcite#getfilepath("pandoc")) > 1)
+    call bibtexcite#openfile("pandoc")
+  elseif (len(bibtexcite#getfilepath("latex")) > 1)
+    call bibtexcite#openfile("latex")
+  elseif (len(bibtexcite#getcitekey("pandoc")) > 1)
+    call bibtexcite#showcite("pandoc")
+  elseif (len(bibtexcite#getcitekey("latex")) > 1)
+    call bibtexcite#showcite("latex")
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+```
+
+
 ------------------------------------------------------------------------------
 
 If you want to use the abstract in a citation entry, you can either do something
