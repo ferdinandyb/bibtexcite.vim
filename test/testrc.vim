@@ -11,3 +11,4 @@ call plug#end()
 let g:bibtexcite_bibfile = ["test.bib", "test 2.bib"]
 " let g:bibtexcite_bibfile = "test 2.bib"
 let g:bibtexcite_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+let g:bibtexcite_openfilecommand = 'xdg-open'

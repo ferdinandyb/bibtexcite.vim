@@ -29,8 +29,10 @@ endif
 let g:bibtexcite_loaded = 1
 let g:bibtexcite_close_preview_on_insert = get(g:, 'bibtexcite_close_preview_on_insert', 0)
 let g:bibtexcite_bibfile = get(g:, 'bibtexcite_bibfile', 0)
+let g:bibtexcite_openfilecommand = get(g:, 'bibtexcite_openfilecommand', 'xdg-open')
 let g:bibtexcite_floating_window_border = get(g:, 'bibtexcite_floating_window_border', ['|', '-', '+', '+', '+', '+'])
 
 command! -bang -nargs=? BibtexciteInsert call bibtexcite#fzf(<q-args>,<bang>0)
 command! -nargs=? -bang BibtexciteShowcite call bibtexcite#showcite(<q-args>,<bang>0)
 command! -nargs=? -bang BibtexciteEchocite call bibtexcite#echocite(<q-args>,<bang>0)
+command! -nargs=? -bang BibtexciteOpenfile call bibtexcite#openfile(<q-args>,<bang>0)
