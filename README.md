@@ -3,8 +3,14 @@ BIBTEXCITE.VIM
 
 A simple vim integration for [fzf-bibtex](https://github.com/msprev/fzf-bibtex)
  and [bibtool](https://ctan.org/pkg/bibtool)  for easy handling
-of bib(la)tex citations. Insert citations in pandoc markdown, latex or
-human-readable format. Fetch citation info in popup window or echo.
+of bib(la)tex citations.
+
+## Features
+
+- insert citations in pandoc markdown, latex or
+human-readable format
+- fetch citation info in a popup window or echo it for further processing
+- open pdf stored in citation with your favorite pdf reader
 
 Fetch info
 ![fetch](fetch.png)
@@ -12,7 +18,6 @@ Fetch info
 Insert citation
 ![insert](insert.png)
 
-z
 INSTALLATION
 ==============================================================================
 
