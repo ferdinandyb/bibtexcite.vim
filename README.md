@@ -33,7 +33,7 @@ Use your favorite plugin manager.
 
 ## USAGE
 
-* `|g:bibtexcite_bibfile|`
+* `g:bibtexcite_bibfile`
 
   Type: |String| or |List| of Strings
 
@@ -133,20 +133,20 @@ to work, but you might need to include a .bib file for sharing later. In that
 case, if you are working with latex the following will extract the entries from
 the .aux file and place the in new.bib.
 
-```
+```sh
 bibtool -x main.aux -o new.bib
 ```
 
 If you are working with pandoc markdown the following will do the same:
 
-```
+```sh
 grep -rPo "@\K[a-zA-Z0-9\-&_]+" *.md | xargs \
     -I{} bibtool -r biblatex -X {} monolithical.bib > new.bib
 ```
 
 Using fzf to export some records from the bibfile to a new one:
 
- ```
+ ```sh
  bibtex-ls ~/org/zotero.bib | fzf --multi | sed -nr 's/.+\b@([a-zA-Z0-9\-\&_])/\1/p' | ansi2txt | xargs  -I{} bibtool -r biblatex -X {} ~/org/zotero.bib
  ```
 
@@ -154,7 +154,7 @@ Using fzf to export some records from the bibfile to a new one:
 You can bind vim's default help key (K) to get the help if it exists, otherwise
 show the citation info by putting this in your vimrc:
 
-```
+```vim
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -178,7 +178,7 @@ it remove the correspoding elseif.
 
 This version of the function will first try to open the corresponding pdf and if
 there is none, then show the pop-up with the citation info.
-```
+```vim
 function! myfunctions#show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -203,7 +203,7 @@ endfunction
 
 If you want to use the abstract in a citation entry, you can either do something
 like this over a citekey:
-```
+```vim
 :put =bibtexcite#getcite('pandoc')
 ```
 
