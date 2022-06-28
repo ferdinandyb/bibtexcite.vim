@@ -33,16 +33,18 @@ Use your favorite plugin manager.
 
 ## USAGE
 
-* g:bibtexcite_bibfile
+* `|g:bibtexcite_bibfile|`
 
-    Can be either a string or a list of strings. Values will be used as paths to
-    .bib files to be used. Buffer specific .bib files can also be set via
-    `b:bibtexcite_bibfile`. This could be useful, although see |tips| for using
-    a monolithical .bib file and then gathering all the actually used entries
-    into a new .bib.
+  Type: |String| or |List| of Strings
+
+  Can be either a string or a list of strings. Values will be used as paths to
+  .bib files to be used. Buffer specific .bib files can also be set via
+  `b:bibtexcite_bibfile`. This could be useful, although see |bibtexcite-tips| for using
+  a monolithical .bib file and then gathering all the actually used entries
+  into a new .bib.
 
 
-* :BibtexciteInsert {citetype}
+* `:BibtexciteInsert {citetype}`
 
   Open an fzf search window for citations and insert them in the
   appropriate format. Multiple citations can be selected. It takes an optional
@@ -54,7 +56,7 @@ Use your favorite plugin manager.
                 authors (year) 'title' *journal* pages
 
 
-* :BibtexciteShowcite[!] {citetype}
+* `:BibtexciteShowcite[!] {citetype}`
 
   Fetch the citation info based on the citation key the cursor is on. The
   {citetype} is optional, which can either be "pandoc" or "latex". If the <cWORD>
@@ -63,11 +65,11 @@ Use your favorite plugin manager.
   spans multiple lines. Using the command with the bang will try to use <cWORD> as
   key whether without any sanity checks.
 
-* :BibtexciteEchocite {citetype}
+* `:BibtexciteEchocite {citetype}`
 
   Prints the bib entry, see tips for possible use case.
 
-* :BibtexciteOpenfile {citetype}
+* `:BibtexciteOpenfile {citetype}`
 
   If the citation has a file key in it, it will attempt to open the file with
   whatever is configured in |g:bibtexcite_openfilecommand|.
@@ -76,12 +78,28 @@ Use your favorite plugin manager.
 
 ## Configuration
 
-* g:bibtexcite_openfilecommand
+* `g:bibtexcite_openfilecommand`
+  Type: |String| or |List| of String
+  Default: `"xdg-open"`
 
   Also works with buffer specific b:. Set the command to which file paths are
-  passed when calling |BibtexciteOpenfile|. Defaults to `xdg-open`.
+  passed when calling |BibtexciteOpenfile|. Defaults to `xdg-open`. If you want
+  to pass additional command line arguments to your command, create a list with
+  the parameters, e.g. `["command", "--argument", "argval"]`. The file paths
+  will be passed after these.
 
-* g:bibtexcite_floating_window_border
+* `g:bibtexcite_openfilesetting`
+
+  Type: |Integer|
+  Default: `1`
+
+  Set how to behave when multiple files are present in the bibtex entry. Can also set buffer specific ones.
+  - 1: pass only first file as argument to `openfilecommand` (default)
+  - 2: pass all files as arguments
+  - 3: open prompt which asks which one it should be. NOT IMPLEMENTED, falls
+    back to 1 currently
+
+* `g:bibtexcite_floating_window_border`
 
   Type: |List|
   Default: `['|', '-', '+', '+', '+', '+']`
@@ -95,7 +113,7 @@ Use your favorite plugin manager.
 
   Taken from ALE.
 
-* g:bibtexcite_close_preview_on_insert
+* `g:bibtexcite_close_preview_on_insert`
 
 
   Type: |Number|

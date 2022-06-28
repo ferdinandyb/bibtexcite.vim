@@ -158,11 +158,29 @@ endfunction
 function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
     let l:filepath = bibtexcite#getfilepath(a:citetype, a:bang)
     let l:openfilecommand = get(b:, 'bibtexcite_openfilecommand',g:bibtexcite_openfilecommand)
+    let l:openfilesetting = get(g:, 'bibtexcite_openfilesetting', 1)
     if len(l:filepath) > 1
-        if has('nvim')
-            let l:job = jobstart([l:openfilecommand,  l:filepath])
+        " load the commands
+        if type(l:openfilecommand) == v:t_list
+            let l:job = l:openfilecommand
         else
-            let l:job = job_start([l:openfilecommand,  l:filepath])
+            let l:job = [l:openfilecommand]
+        endif
+        " decide what to do if have multiple files
+        let l:filepath = split(l:filepath, ";")
+        if l:openfilesetting == 1
+            let l:filepath = l:filepath[0:0]
+        elseif l:openfilesetting == 2
+            ;
+        else
+            echom "not implemented, falling back opening first"
+            let l:filepath = l:filepath[0:0]
+        endif
+        let l:job = l:job + l:filepath
+        if has('nvim')
+            let l:jobobj = jobstart(l:job)
+        else
+            let l:jobobj = job_start(l:job)
         endif
     else
         echom "no file"
