@@ -1,9 +1,8 @@
-BIBTEXCITE.VIM
-==============
+# BIBTEXCITE.VIM
 
 A simple vim integration for [fzf-bibtex](https://github.com/msprev/fzf-bibtex)
- and [bibtool](https://ctan.org/pkg/bibtool)  for easy handling
-of bib(la)tex citations.
+and [bibtool](https://ctan.org/pkg/bibtool)  for easy handling of bib(la)tex
+citations.
 
 ## Features
 
@@ -12,17 +11,16 @@ human-readable format
 - fetch citation info in a popup window or echo it for further processing
 - open pdf stored in citation with your favorite pdf reader
 
-Fetch info
+**Fetch info**
 ![fetch](fetch.png)
 
-Insert citation
+**Insert citation**
 ![insert](insert.png)
 
-INSTALLATION
-==============================================================================
+## INSTALLATION
 
 For fetching citation info [bibtool](https://ctan.org/pkg/bibtool) is enough,
-otherwise you need [fzf-bibtex](https://github.com/msprev/fzf-bibtex) .  Make
+otherwise you need [fzf-bibtex](https://github.com/msprev/fzf-bibtex). Make
 sure all the binaries (bibtool, bibtex-ls, bibtex-cite and bibtex-markdown) are
 on your path.
 
@@ -33,26 +31,18 @@ Use your favorite plugin manager.
    2. Run `:PlugInstall`
 
 
-USAGE
-==============================================================================
+## USAGE
 
-g:bibtexcite_bibfile
+* g:bibtexcite_bibfile
 
- Can be either a string or a list of strings. Values will be used as paths to
-  .bib files to be used.
+    Can be either a string or a list of strings. Values will be used as paths to
+    .bib files to be used. Buffer specific .bib files can also be set via
+    `b:bibtexcite_bibfile`. This could be useful, although see |tips| for using
+    a monolithical .bib file and then gathering all the actually used entries
+    into a new .bib.
 
-b:bibtexcite_bibfile
 
-  Buffer specific .bib files can also be set. This could be useful, although see
-  |tips| for using a monolithical .bib file and then gathering all the actually
-  used entries into a new .bib.
-
-g:bibtexcite_openfilecommand
-
-  Also works with buffer specific b:. Set the command to which file paths are
-  passed when calling |BibtexciteOpenfile|. Defaults to `xdg-open`.
-
-:BibtexciteInsert {citetype}
+* :BibtexciteInsert {citetype}
 
   Open an fzf search window for citations and insert them in the
   appropriate format. Multiple citations can be selected. It takes an optional
@@ -64,7 +54,7 @@ g:bibtexcite_openfilecommand
                 authors (year) 'title' *journal* pages
 
 
-:BibtexciteShowcite[!] {citetype}
+* :BibtexciteShowcite[!] {citetype}
 
   Fetch the citation info based on the citation key the cursor is on. The
   {citetype} is optional, which can either be "pandoc" or "latex". If the <cWORD>
@@ -73,20 +63,25 @@ g:bibtexcite_openfilecommand
   spans multiple lines. Using the command with the bang will try to use <cWORD> as
   key whether without any sanity checks.
 
-:BibtexciteEchocite {citetype}
+* :BibtexciteEchocite {citetype}
 
   Prints the bib entry, see tips for possible use case.
 
-:BibtexciteOpenfile {citetype}
+* :BibtexciteOpenfile {citetype}
 
   If the citation has a file key in it, it will attempt to open the file with
   whatever is configured in |g:bibtexcite_openfilecommand|.
 
 
 
-Configuration
-==============================================================================
-g:bibtexcite_floating_window_border
+## Configuration
+
+* g:bibtexcite_openfilecommand
+
+  Also works with buffer specific b:. Set the command to which file paths are
+  passed when calling |BibtexciteOpenfile|. Defaults to `xdg-open`.
+
+* g:bibtexcite_floating_window_border
 
   Type: |List|
   Default: `['|', '-', '+', '+', '+', '+']`
@@ -100,7 +95,7 @@ g:bibtexcite_floating_window_border
 
   Taken from ALE.
 
-g:bibtexcite_close_preview_on_insert
+* g:bibtexcite_close_preview_on_insert
 
 
   Type: |Number|
@@ -113,8 +108,7 @@ g:bibtexcite_close_preview_on_insert
 
 
 
-TIPS
-==============================================================================
+## TIPS
 
 Using one monolithical .bibfile managed by Zotero or Mendeley is the fastest way
 to work, but you might need to include a .bib file for sharing later. In that
@@ -195,27 +189,25 @@ like this over a citekey:
 :put =bibtexcite#getcite('pandoc')
 ```
 
-or using [vim-backscratch](https://github.com/hauleth/vim-backscratch) `:Scratch BibtexciteEchocite` to put it on
-a scratch buffer.
+or using [vim-backscratch](https://github.com/hauleth/vim-backscratch) `:Scratch
+BibtexciteEchocite` to put it on a scratch buffer.
 
 
 ---------------------------------------------------------------------------
 
-Possibly mappings:
+Possible mappings:
 ```
 autocmd FileType markdown  nnoremap <buffer> <silent> <leader>nc :BibtexciteInsert<CR>
 autocmd FileType markdown  inoremap <buffer> <silent> @@ <Esc>:BibtexciteInsert<CR>
 ```
 
-Acknowledgments
-=============================================================================
+## Acknowledgments
 
 The code for the popups was sourced from
 [ALE](https://github.com/dense-analysis/ale), the code for the fzf chooser was
 pretty much taken from the fzf-bibtex README.
 
-LICENSE
-==============================================================================
+## LICENSE
 
 MIT
 
