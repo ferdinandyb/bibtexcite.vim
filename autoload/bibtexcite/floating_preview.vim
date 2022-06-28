@@ -172,8 +172,6 @@ endfunction
 
 function! s:VimCreate(options) abort
     let l:popup_id = popup_create([], {
-    \    'line': 'cursor+1',
-    \    'col': 'cursor',
     \    'drag': v:true,
     \    'resize': v:true,
     \    'close': 'button',
