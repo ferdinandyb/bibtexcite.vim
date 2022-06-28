@@ -214,7 +214,7 @@ BibtexciteEchocite` to put it on a scratch buffer.
 ---------------------------------------------------------------------------
 
 Possible mappings:
-```
+```vim
 autocmd FileType markdown  nnoremap <buffer> <silent> <leader>nc :BibtexciteInsert<CR>
 autocmd FileType markdown  inoremap <buffer> <silent> @@ <Esc>:BibtexciteInsert<CR>
 ```
