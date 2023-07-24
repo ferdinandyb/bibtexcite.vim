@@ -52,18 +52,17 @@ endfunction
 
 function! bibtexcite#fzf(citetype = "pandoc", bang = 0)
     let l:bibtexcite_bibfile = bibtexcite#get_bibfile()
-    if a:citetype ==? "pandoc" || a:citetype == ""
+    if trim(a:citetype) ==? "pandoc" || trim(a:citetype) ==? "" || trim(a:citetype) ==? "p"
         let sink = 'bibtexcite#pandoc_sink'
         let prompt = '"Cite pandoc>"'
-    elseif a:citetype ==? "latex"
+    elseif trim(a:citetype) ==? "latex" || trim(a:citetype) ==? "l"
         let sink = 'bibtexcite#latex_sink'
         let prompt = '"Cite latex>"'
-    elseif a:citetype ==? "markdown"
+    elseif trim(a:citetype) ==? "markdown" || trim(a:citetype) ==? "m"
         let sink = 'bibtexcite#markdown_sink'
         let prompt = '"Cite markdown>"'
     else
-        echo "bad citetype"
-        return 0
+        throw "Bad citation type, possible values are: p[andoc], l[atex], m[arkdown]."
     endif
 
     call fzf#run({
@@ -79,7 +78,7 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
         let word = expand("<cWORD>")
         return word
     endif
-    if a:citetype ==? "pandoc" || a:citetype == ""
+    if trim(a:citetype )==? "pandoc" || trim(a:citetype) ==? "" || trim(a:citetype) ==? "p"
         let word = expand("<cWORD>")
         let regex = '@\<\([a-zA-Z0-9\-&_]\+\)\>;\?'
         if word =~ regex
@@ -91,7 +90,7 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
         else
             return 0
         endif
-    elseif a:citetype ==? "latex"
+    elseif trim(a:citetype) ==? "latex" ||  trim(a:citetype) ==? "l"
         let line=getline('.')
         if line =~ '\\cite{[a-zA-Z0-9\-&_, ]\+}'
             let word = expand("<cWORD>")
@@ -105,7 +104,7 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
             return 0
         endif
     else
-        echo "bad citetype"
+        throw "Bad citation type, possible values are: p[andoc], l[atex]."
         return 0
     endif
 endfunction
@@ -173,7 +172,7 @@ function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
         elseif l:openfilesetting == 2
             ;
         else
-            echom "not implemented, falling back opening first"
+            echom "not implemented, falling back to opening first"
             let l:filepath = l:filepath[0:0]
         endif
         let l:job = l:job + l:filepath
@@ -183,7 +182,7 @@ function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
             let l:jobobj = job_start(l:job)
         endif
     else
-        echom "no file"
+        echoerr "no file"
     endif
 
 endfunction
