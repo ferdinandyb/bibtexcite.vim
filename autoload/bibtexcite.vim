@@ -188,5 +188,20 @@ function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
 endfunction
 
 
+function! bibtexcite#zoterocite(citetype = "pandoc", bang = 0)
+  " pick a format based on the filetype (customize at will)
+  " https://retorque.re/zotero-better-bibtex/citing/cayw/index.html#vim
+  if a:citetype ==? "markdown"
+      let format = "formatted-citation"
+  else
+      let format = a:citetype
+  endif
+
+  let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format
+  let ref = system('curl -s '.shellescape(api_call))
+  execute ':normal! a' . ref
+
+endfunction
+
 let &cpo = s:cpo_save
 unlet s:cpo_save

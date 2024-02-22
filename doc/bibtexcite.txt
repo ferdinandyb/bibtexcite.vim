@@ -7,7 +7,6 @@ CONTENTS                                                     *bibtexcite-content
     1.1. Features............................................|bibtexcite-features|
     1.2. INSTALLATION....................................|bibtexcite-installation|
     1.3. USAGE..................................................|bibtexcite-usage|
-        1.3.1. g:bibtexcite_bibfile..............|bibtexcite-g:bibtexcite_bibfile|
     1.4. Configuration..................................|bibtexcite-configuration|
     1.5. TIPS....................................................|bibtexcite-tips|
     1.6. Acknowledgments..............................|bibtexcite-acknowledgments|
@@ -51,7 +50,7 @@ Use your favorite plugin manager.
 --------------------------------------------------------------------------------
 USAGE                                                           *bibtexcite-usage*
 
-G:BIBTEXCITE_BIBFILE                             *bibtexcite-g:bibtexcite_bibfile*
+*   `g:bibtexcite_bibfile`
 
 Type: |String| or |List| of Strings
 
@@ -90,6 +89,11 @@ Prints the bib entry, see tips for possible use case.
 
 If the citation has a file key in it, it will attempt to open the file with
   whatever is configured in |g:bibtexcite_openfilecommand|.
+
+*   `:BibtexciteZoteroInsert {citetype}`
+
+This command requires a running Zotero instance with the Better Bibtex (https://retorque.re/zotero-better-bibtex/)
+  plugin. It will open the Zotero citation selector for picking a citation.
 
 --------------------------------------------------------------------------------
 CONFIGURATION                                           *bibtexcite-configuration*

@@ -74,6 +74,10 @@ Use your favorite plugin manager.
   If the citation has a file key in it, it will attempt to open the file with
   whatever is configured in |g:bibtexcite_openfilecommand|.
 
+* `:BibtexciteZoteroInsert {citetype}`
+
+  This command requires a running Zotero instance with the [Better Bibtex](https://retorque.re/zotero-better-bibtex/)
+  plugin. It will open the Zotero citation selector for picking a citation.
 
 
 ## Configuration
