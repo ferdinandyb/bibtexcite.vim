@@ -1,15 +1,22 @@
 # BIBTEXCITE.VIM
 
 A simple vim integration for [fzf-bibtex](https://github.com/msprev/fzf-bibtex)
-and [bibtool](https://ctan.org/pkg/bibtool)  for easy handling of bib(la)tex
+and [bibtool](https://ctan.org/pkg/bibtool) for easy handling of bib(la)tex
 citations.
 
 ## Features
 
+The plugin is being developed to work well with
+[Zotero](https://www.zotero.org/) as the citation manager, using the [Better
+Biblatex](https://retorque.re/zotero-better-bibtex/) plugin to synchronize
+a monolithic `.bib` file, but it should work with other workflows as well (also see tips below).
+
 - insert citations in pandoc markdown, latex or
-human-readable format
+human-readable format using fzf
 - fetch citation info in a popup window or echo it for further processing
 - open pdf stored in citation with your favorite pdf reader
+- insert citation directly from Zotero (slower than fzf method)
+
 
 **Fetch info**
 ![fetch](fetch.png)
@@ -77,7 +84,11 @@ Use your favorite plugin manager.
 * `:BibtexciteZoteroInsert {citetype}`
 
   This command requires a running Zotero instance with the [Better Bibtex](https://retorque.re/zotero-better-bibtex/)
-  plugin. It will open the Zotero citation selector for picking a citation.
+  plugin. It will open the Zotero citation selector for picking a citation. The `citetype`
+  is the same as for `BibtexciteInsert`, except that the markdown format will use whatever
+  citation export format is configured in Zotero. Using Zotero directly is considerably
+  slower, than using the fzf method, but maybe useful for the more flexible markdown citation
+  style.
 
 
 ## Configuration
