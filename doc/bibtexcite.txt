@@ -121,13 +121,12 @@ Also works with buffer specific b:. Set the command to which file paths are
 *   `g:bibtexcite_openfilesetting`
 
 Type: |Integer|
-  Default: `1`
+  Default: `3`
 
 Set how to behave when multiple files are present in the bibtex entry. Can also set buffer specific ones.
-  - 1: pass only first file as argument to `openfilecommand` (default)
-  - 2: pass all files as arguments
-  - 3: open prompt which asks which one it should be. NOT IMPLEMENTED, falls
-    back to 1 currently
+  - 1: Pass only first file as argument to `openfilecommand`.
+  - 2: Pass all files as arguments.
+  - 3: Open fzf selector asking for what files to open. If there's only one file, open without prompting. (default)
 
 *   `g:bibtexcite_floating_window_border`
 

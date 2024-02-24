@@ -154,32 +154,44 @@ function! bibtexcite#getfilepath(citetype = "pandoc", bang = 0)
         return ""
 endfunction
 
+function! bibtexcite#jobstart(filelist)
+    let l:openfilecommand = get(b:, 'bibtexcite_openfilecommand',g:bibtexcite_openfilecommand)
+    if type(l:openfilecommand) == v:t_list
+        let l:job = l:openfilecommand
+    else
+        let l:job = [l:openfilecommand]
+    endif
+    let l:job = l:job + a:filelist
+    if has('nvim')
+        let l:jobobj = jobstart(l:job)
+    else
+        let l:jobobj = job_start(l:job)
+    endif
+endfunction
+
 function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
     let l:filepath = bibtexcite#getfilepath(a:citetype, a:bang)
-    let l:openfilecommand = get(b:, 'bibtexcite_openfilecommand',g:bibtexcite_openfilecommand)
-    let l:openfilesetting = get(g:, 'bibtexcite_openfilesetting', 1)
+    let l:openfilesetting = get(g:, 'bibtexcite_openfilesetting', 3)
     if len(l:filepath) > 1
-        " load the commands
-        if type(l:openfilecommand) == v:t_list
-            let l:job = l:openfilecommand
-        else
-            let l:job = [l:openfilecommand]
+        let l:filelist = split(l:filepath, ";")
+
+        " if there's just one file, open it
+        if len(l:filelist) == 1
+            call bibtexcite#jobstart(l:filelist)
+            return
         endif
+
         " decide what to do if have multiple files
-        let l:filepath = split(l:filepath, ";")
         if l:openfilesetting == 1
-            let l:filepath = l:filepath[0:0]
+            call bibtexcite#jobstart(l:filelist[0:0])
         elseif l:openfilesetting == 2
-            ;
+            call bibtexcite#jobstart(l:filelist)
         else
-            echom "not implemented, falling back to opening first"
-            let l:filepath = l:filepath[0:0]
-        endif
-        let l:job = l:job + l:filepath
-        if has('nvim')
-            let l:jobobj = jobstart(l:job)
-        else
-            let l:jobobj = job_start(l:job)
+            call fzf#run(fzf#wrap({
+                \ 'source': l:filelist,
+                \ 'sink*': function('bibtexcite#jobstart'),
+                \ 'options': '--multi --prompt "Choose files to open"'},
+                \ a:bang))
         endif
     else
         echoerr "no file"
