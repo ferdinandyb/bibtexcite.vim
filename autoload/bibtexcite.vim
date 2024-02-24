@@ -65,12 +65,12 @@ function! bibtexcite#fzf(citetype = "pandoc", bang = 0)
         throw "Bad citation type, possible values are: p[andoc], l[atex], m[arkdown]."
     endif
 
-    call fzf#run({
+    call fzf#run(fzf#wrap({
         \ 'source': 'bibtex-ls ' . l:bibtexcite_bibfile,
         \ 'sink*': function(sink),
         \ 'up': '40%',
         \ 'options': '--ansi --layout=reverse-list --multi --prompt '. prompt},
-        \ a:bang)
+        \ a:bang))
 endfunction
 
 function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
