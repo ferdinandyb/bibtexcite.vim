@@ -224,6 +224,12 @@ like this over a citekey:
 or using [vim-backscratch](https://github.com/hauleth/vim-backscratch) `:Scratch
 BibtexciteEchocite` to put it on a scratch buffer.
 
+Placing it in one of the registers (e.g. + for system clipboard) can done with
+
+```vim
+:let @+ = bibtexcite#getcite('pandoc')
+```
+
 
 ---------------------------------------------------------------------------
 
