@@ -215,5 +215,11 @@ function! bibtexcite#zoterocite(citetype = "pandoc", bang = 0)
 
 endfunction
 
+function! bibtexcite#complete_citetype(ArgLead, CmdLine, CursorPos)
+    let l:retval = ['pandoc', 'latex', 'markdown']
+    let l:match = '^' . a:ArgLead
+    return filter(l:retval, 'v:val =~ l:match')
+endfunction
+
 let &cpo = s:cpo_save
 unlet s:cpo_save
