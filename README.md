@@ -28,14 +28,21 @@ human-readable format using fzf
 
 For fetching citation info [bibtool](https://ctan.org/pkg/bibtool) is enough,
 otherwise you need [fzf-bibtex](https://github.com/msprev/fzf-bibtex). Make
-sure all the binaries (bibtool, bibtex-ls, bibtex-cite and bibtex-markdown) are
-on your path.
+sure all the binaries (`bibtool`, `bibtex-ls,` `bibtex-cite,` `bibtex-markdown`
+and `fzf)` are on your path.
 
 Use your favorite plugin manager.
 
  - [vim-plug](https://github.com/junegunn/vim-plug)
-   1. Add `Plug 'ferdinandyb/bibtexcite.vim'` to .vimrc
-   2. Run `:PlugInstall`
+
+  1. Add this to you .vimrc:
+  ```
+  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
+  Plug 'ferdinandyb/bibtexcite.vim'
+  ```
+
+  2. Run `:PlugInstall`
 
 
 ## USAGE

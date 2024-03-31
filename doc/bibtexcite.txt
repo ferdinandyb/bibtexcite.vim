@@ -44,13 +44,18 @@ INSTALLATION                                             *bibtexcite-installatio
 
 For fetching citation info bibtool (https://ctan.org/pkg/bibtool) is enough,
 otherwise you need fzf-bibtex (https://github.com/msprev/fzf-bibtex). Make
-sure all the binaries (bibtool, bibtex-ls, bibtex-cite and bibtex-markdown) are
-on your path.
+sure all the binaries (`bibtool`, `bibtex-ls,` `bibtex-cite,` `bibtex-markdown`
+and `fzf)` are on your path.
 
 Use your favorite plugin manager.
 
 *   vim-plug (https://github.com/junegunn/vim-plug)
-    1.  Add `Plug 'ferdinandyb/bibtexcite.vim'` to .vimrc
+    1.  Add this to you .vimrc:
+>
+            Plug 'junegunn/fzf'
+            Plug 'junegunn/fzf.vim'
+            Plug 'ferdinandyb/bibtexcite.vim'
+<
     2.  Run `:PlugInstall`
 
 --------------------------------------------------------------------------------
@@ -229,6 +234,11 @@ like this over a citekey:
 
 or using vim-backscratch (https://github.com/hauleth/vim-backscratch) `:Scratch
 BibtexciteEchocite` to put it on a scratch buffer.
+
+Placing it in one of the registers (e.g. + for system clipboard) can done with
+>
+    :let @+ = bibtexcite#getcite('pandoc')
+<
 
 --------------------------------------------------------------------------------
 Possible mappings:
