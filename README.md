@@ -100,6 +100,14 @@ Use your favorite plugin manager.
 
 ## Configuration
 
+* `g:bibtexcite_latex_citecommands`
+  Type: |List| of String
+  Default: `['cite', 'bibentry']`
+
+  Also works with buffer specific b:. Defines which latex commands are
+  interpreted as a citation. The default will work with `\cite{key1, key2}` and
+  `\bibentry{key1, key2}`.
+
 * `g:bibtexcite_openfilecommand`
   Type: |String| or |List| of String
   Default: `"xdg-open"`

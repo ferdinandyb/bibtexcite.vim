@@ -92,11 +92,16 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
         endif
     elseif trim(a:citetype) ==? "latex" ||  trim(a:citetype) ==? "l"
         let line=getline('.')
-        if line =~ '\\cite{[a-zA-Z0-9\-&_, ]\+}'
+        let l:citecommands = get(b:, 'bibtexcite_latex_citecommands',g:bibtexcite_latex_citecommands)
+        let l:citegroup = l:citecommands[0]
+        for c in l:citecommands[1:]
+            let l:citegroup = l:citegroup . '\|' . c
+        endfor
+        if line =~ '\\\(' . l:citegroup . '\){[a-zA-Z0-9\-&_, ]\+}'
             let word = expand("<cWORD>")
             let regex = '@\<\([a-zA-Z0-9\-&_]\+\)\>,\?'
             let word = substitute(word, regex, '\1', '')
-            let word = substitute(word, '\\cite{','','')
+            let word = substitute(word, '\\\(' . l:citegroup . '\){','','')
             let word = substitute(word, ',','','')
             let word = substitute(word, '}','','')
             return word
