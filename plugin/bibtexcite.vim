@@ -33,8 +33,8 @@ let g:bibtexcite_openfilecommand = get(g:, 'bibtexcite_openfilecommand', 'xdg-op
 let g:bibtexcite_openfilesetting = get(g:, 'bibtexcite_openfilesetting', 1)
 let g:bibtexcite_floating_window_border = get(g:, 'bibtexcite_floating_window_border', ['|', '-', '+', '+', '+', '+'])
 
-command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype BibtexciteInsert call bibtexcite#fzf(<q-args>,<bang>0)
-command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype BibtexciteShowcite call bibtexcite#showcite(<q-args>,<bang>0)
-command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype BibtexciteEchocite call bibtexcite#echocite(<q-args>,<bang>0)
-command! -nargs=? -bang BibtexciteOpenfile call bibtexcite#openfile(<q-args>,<bang>0)
-command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype BibtexciteZoteroInsert call bibtexcite#zoterocite(<q-args>,<bang>0)
+command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype_output BibtexciteInsert call bibtexcite#fzf(<q-args>,<bang>0)
+command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype_parsing BibtexciteShowcite call bibtexcite#showcite(<q-args>,<bang>0)
+command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype_parsing BibtexciteEchocite call bibtexcite#echocite(<q-args>,<bang>0)
+command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype_parsing BibtexciteOpenfile call bibtexcite#openfile(<q-args>,<bang>0)
+command! -nargs=? -bang -complete=customlist,bibtexcite#complete_citetype_output BibtexciteZoteroInsert call bibtexcite#zoterocite(<q-args>,<bang>0)
