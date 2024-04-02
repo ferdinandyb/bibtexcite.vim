@@ -109,13 +109,17 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
     endif
 endfunction
 
-function! bibtexcite#getcite(citetype = "pandoc", bang = 0)
+function! bibtexcite#getcite(citetype = "pandoc", bang = 0, extra_flags = "")
     let citekey = bibtexcite#getcitekey(a:citetype, a:bang)
     if len(citekey) == 1
         return 0
     endif
     let l:bibtexcite_bibfile = bibtexcite#get_bibfile()
-    let bib = system("bibtool -r biblatex -X " . citekey . " " . l:bibtexcite_bibfile)
+    let l:command = "bibtool -r biblatex -X " . citekey . " " . l:bibtexcite_bibfile
+    if len(a:extra_flags) > 0
+        let l:command = l:command . " " . a:extra_flags
+    endif
+    let bib = system(l:command)
     if len(bib) == 0
         echo "no citation found"
         return 0
@@ -143,11 +147,10 @@ function! bibtexcite#echocite(citetype = "pandoc", bang = 0)
 endfunction
 
 function! bibtexcite#getfilepath(citetype = "pandoc", bang = 0)
-    let bib = bibtexcite#getcite(a:citetype, a:bang)
+    let bib = bibtexcite#getcite(a:citetype, a:bang, "-- print.line.length=99999 -- keep.field{file}")
     let l:filepath = matchlist(bib, '[fF]ile\s\+=\s\+{\(.\{-}\)}')
     if len(l:filepath) > 1
-        let l:filepath = substitute(l:filepath[1], '\n\t\t ', '', 'g')
-        return l:filepath
+        return l:filepath[1]
     else
         return ""
 endfunction
