@@ -50,15 +50,20 @@ function! bibtexcite#get_bibfile()
     return l:bibtexcite_bibfile
 endfunction
 
-function! bibtexcite#fzf(citetype = "pandoc", bang = 0)
+function! bibtexcite#fzf(citetype = "", bang = 0)
     let l:bibtexcite_bibfile = bibtexcite#get_bibfile()
-    if trim(a:citetype) ==? "pandoc" || trim(a:citetype) ==? "" || trim(a:citetype) ==? "p"
+    if len(a:citetype) == 0
+        let l:citetype = bibtexcite#getdefaultcitetypeoutput()
+    else
+        let l:citetype = a:citetype
+    endif
+    if trim(l:citetype) ==? "pandoc" || trim(l:citetype) ==? "" || trim(l:citetype) ==? "p"
         let sink = 'bibtexcite#pandoc_sink'
         let prompt = '"Cite pandoc>"'
-    elseif trim(a:citetype) ==? "latex" || trim(a:citetype) ==? "l"
+    elseif trim(l:citetype) ==? "latex" || trim(l:citetype) ==? "l"
         let sink = 'bibtexcite#latex_sink'
         let prompt = '"Cite latex>"'
-    elseif trim(a:citetype) ==? "markdown" || trim(a:citetype) ==? "m"
+    elseif trim(l:citetype) ==? "markdown" || trim(l:citetype) ==? "m"
         let sink = 'bibtexcite#markdown_sink'
         let prompt = '"Cite markdown>"'
     else
@@ -73,12 +78,39 @@ function! bibtexcite#fzf(citetype = "pandoc", bang = 0)
         \ a:bang))
 endfunction
 
-function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
+function! bibtexcite#getdefaultcitetype()
+    if &filetype == "tex"
+        return "latex"
+    elseif &filetype == "markdown"
+        return "pandoc"
+    else
+        return "pandoc"
+    endif
+endfunction
+
+function! bibtexcite#getdefaultcitetypeoutput()
+    if &filetype == "tex"
+        return "latex"
+    elseif &filetype == "markdown"
+        return "pandoc"
+    else
+        return "markdown"
+    endif
+endfunction
+
+function! bibtexcite#getcitekey(citetype = "", bang = 0)
     if a:bang
         let word = expand("<cWORD>")
         return word
     endif
-    if trim(a:citetype )==? "pandoc" || trim(a:citetype) ==? "" || trim(a:citetype) ==? "p"
+
+    if len(a:citetype) == 0
+        let l:citetype = bibtexcite#getdefaultcitetype()
+    else
+        let l:citetype = a:citetype
+    endif
+
+    if trim(l:citetype )==? "pandoc" || trim(l:citetype) ==? "" || trim(l:citetype) ==? "p"
         let word = expand("<cWORD>")
         let regex = '@\<\([a-zA-Z0-9\-&_]\+\)\>;\?'
         if word =~ regex
@@ -90,7 +122,7 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
         else
             return 0
         endif
-    elseif trim(a:citetype) ==? "latex" ||  trim(a:citetype) ==? "l"
+    elseif trim(l:citetype) ==? "latex" ||  trim(l:citetype) ==? "l"
         let line=getline('.')
         let l:citecommands = get(b:, 'bibtexcite_latex_citecommands',g:bibtexcite_latex_citecommands)
         let l:citegroup = l:citecommands[0]
@@ -114,7 +146,7 @@ function! bibtexcite#getcitekey(citetype = "pandoc", bang = 0)
     endif
 endfunction
 
-function! bibtexcite#getcite(citetype = "pandoc", bang = 0, extra_flags = "")
+function! bibtexcite#getcite(citetype = "", bang = 0, extra_flags = "")
     let citekey = bibtexcite#getcitekey(a:citetype, a:bang)
     if len(citekey) == 1
         return 0
@@ -135,14 +167,14 @@ function! bibtexcite#getcite(citetype = "pandoc", bang = 0, extra_flags = "")
     return bib
 endfunction
 
-function! bibtexcite#showcite(citetype = "pandoc", bang = 0)
+function! bibtexcite#showcite(citetype = "", bang = 0)
     let bib = bibtexcite#getcite(a:citetype, a:bang)
     if len(bib) > 1
         call bibtexcite#floating_preview#Show(split(bib,'\n'))
     endif
 endfunction
 
-function! bibtexcite#echocite(citetype = "pandoc", bang = 0)
+function! bibtexcite#echocite(citetype = "", bang = 0)
     let bib = bibtexcite#getcite(a:citetype, a:bang)
     if len(bib) == 1
         echo ""
@@ -151,7 +183,7 @@ function! bibtexcite#echocite(citetype = "pandoc", bang = 0)
     endif
 endfunction
 
-function! bibtexcite#getfilepath(citetype = "pandoc", bang = 0)
+function! bibtexcite#getfilepath(citetype = "", bang = 0)
     let bib = bibtexcite#getcite(a:citetype, a:bang, "-- print.line.length=99999 -- keep.field{file}")
     let l:filepath = matchlist(bib, '[fF]ile\s\+=\s\+{\(.\{-}\)}')
     if len(l:filepath) > 1
@@ -175,7 +207,7 @@ function! bibtexcite#jobstart(filelist)
     endif
 endfunction
 
-function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
+function! bibtexcite#openfile(citetype = "", bang = 0)
     let l:filepath = bibtexcite#getfilepath(a:citetype, a:bang)
     let l:openfilesetting = get(g:, 'bibtexcite_openfilesetting', 3)
     if len(l:filepath) > 1
@@ -206,13 +238,18 @@ function! bibtexcite#openfile(citetype = "pandoc", bang = 0)
 endfunction
 
 
-function! bibtexcite#zoterocite(citetype = "pandoc", bang = 0)
+function! bibtexcite#zoterocite(citetype = "", bang = 0)
   " pick a format based on the filetype (customize at will)
   " https://retorque.re/zotero-better-bibtex/citing/cayw/index.html#vim
-  if a:citetype ==? "markdown"
+    if len(a:citetype) == 0
+        let l:citetype = bibtexcite#getdefaultcitetypeoutput()
+    else
+        let l:citetype = a:citetype
+    endif
+  if l:citetype ==? "markdown"
       let format = "formatted-citation"
   else
-      let format = a:citetype
+      let format = l:citetype
   endif
 
   let api_call = 'http://127.0.0.1:23119/better-bibtex/cayw?format='.format

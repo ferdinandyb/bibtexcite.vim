@@ -58,16 +58,19 @@ Use your favorite plugin manager.
   into a new .bib.
 
 
-* `:BibtexciteInsert {citetype}`
+* `:BibtexciteInsert {outputtype}`
 
   Open an fzf search window for citations and insert them in the
   appropriate format. Multiple citations can be selected. It takes an optional
-  {citetype} argument (default is "pandoc") from the following:
+  {outputtype} argument from the following:
 
       - pandoc: @citekey1; citekey2
       - latex: \cite{citekey1, citekey2}
       - markdown: insert a human-readable entry
                 authors (year) 'title' *journal* pages
+
+  Default output type is pandoc for markdown files, latex for tex files and
+  markdown for everything else.
 
 
 * `:BibtexciteShowcite[!] {citetype}`
@@ -77,16 +80,23 @@ Use your favorite plugin manager.
   under the cursor is not a valid key for the citation type it will echo a message
   saying so. LaTeX citation keys are currently not matched if the cite command
   spans multiple lines. Using the command with the bang will try to use <cWORD> as
-  key whether without any sanity checks.
+  key without any sanity checks.
 
-* `:BibtexciteEchocite {citetype}`
+  Default citetype is latex for tex files, and pandoc for everything else. For
+  latex see also the |g:bibtexcite_latex_citecommands| setting.
+
+* `:BibtexciteEchocite[!] {citetype}`
 
   Prints the bib entry, see tips for possible use case.
 
-* `:BibtexciteOpenfile {citetype}`
+  See |BibtexciteShowcite| for bang and defaults.
+
+* `:BibtexciteOpenfile[!] {citetype}`
 
   If the citation has a file key in it, it will attempt to open the file with
   whatever is configured in |g:bibtexcite_openfilecommand|.
+
+  See |BibtexciteShowcite| for bang and defaults.
 
 * `:BibtexciteZoteroInsert {citetype}`
 
@@ -97,6 +107,7 @@ Use your favorite plugin manager.
   slower, than using the fzf method, but maybe useful for the more flexible markdown citation
   style.
 
+  See |BibtexciteInsert| for defaults.
 
 ## Configuration
 
