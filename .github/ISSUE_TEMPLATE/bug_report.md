@@ -12,9 +12,10 @@ A clear and concise description of what the bug is and how to reproduce it.
 
 Information that might be relevant:
 
-- Are you using vim or neovim?
+- What version of vim or neovim are you using?
 - What is the output of `:set filetype?`
-- Did you change any of the default configurations?
+- What is your `bibtexcite.vim` configuration?
+- What is the exact command you are trying to run?
 - Did you install all the prerequisites?
 - If trying to access a `.bib` entry:
     - copy the entire line your cursor is on into the report, and indicate where your cursor is at
