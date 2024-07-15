@@ -44,6 +44,8 @@ Use your favorite plugin manager.
 
   2. Run `:PlugInstall`
 
+Requires at least vim 8.2.0 (I don't know the minimal nvim version, and you'll
+probably have a better experience on vim 9).
 
 ## USAGE
 
