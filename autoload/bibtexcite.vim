@@ -83,6 +83,8 @@ function! bibtexcite#getdefaultcitetype()
         return "latex"
     elseif &filetype == "markdown"
         return "pandoc"
+    elseif &filetype == "quarto"
+        return "pandoc"
     else
         return "pandoc"
     endif
@@ -92,6 +94,8 @@ function! bibtexcite#getdefaultcitetypeoutput()
     if &filetype == "tex"
         return "latex"
     elseif &filetype == "markdown"
+        return "pandoc"
+    elseif &filetype == "quarto"
         return "pandoc"
     else
         return "markdown"
